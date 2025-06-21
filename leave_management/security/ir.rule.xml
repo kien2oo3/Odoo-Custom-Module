@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <!-- Quy tắc chỉ đọc đơn của chính mình -->
+        <record id="user_employee_rule_user_self" model="ir.rule">
+            <field name="name">Nhân viên chỉ xem đơn của chính mình</field>
+            <field name="model_id" ref="model_leave_request"/>
+            <field name="domain_force">[('employee_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('leave_management.group_employee_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+        </record>
+
+        <!-- Quy tắc cho phép sửa nhưng chỉ nếu đơn đó là của mình và trạng thái là draft -->
+        <record id="user_employee_rule_request_write" model="ir.rule">
+            <field name="name">Nhân viên chỉ sửa đơn của mình ở trạng thái bản nháp</field>
+            <field name="model_id" ref="model_leave_request"/>
+            <field name="domain_force">[('employee_id','=',user.id),('state','=','draft')]</field>
+            <field name="groups" eval="[(4, ref('leave_management.group_employee_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

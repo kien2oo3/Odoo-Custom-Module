@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_root_leave_management" name="Leave management">
+        <menuitem id="menu_leave" name="Nghỉ phép">
+            <menuitem id="menu_leave_request" name="Đơn xin nghỉ" action="action_leave_request"/>
+        </menuitem>
+    </menuitem>
+</odoo>

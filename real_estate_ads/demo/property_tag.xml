@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="property_tag_cozy" model="estate.property.tag">
+            <field name="name">Cozy</field>
+            <field name="color">1</field>
+        </record>
+        <record id="property_tag_new" model="estate.property.tag">
+            <field name="name">New</field>
+            <field name="color">2</field>
+        </record>
+        <record id="property_tag_renovated" model="estate.property.tag">
+            <field name="name">Renovated</field>
+            <field name="color">3</field>
+        </record>
+    </data>
+</odoo>

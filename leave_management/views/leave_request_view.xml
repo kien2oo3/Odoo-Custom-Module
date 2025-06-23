@@ -21,25 +21,31 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <header>
+                            <button name="action_submit" type="object" class="btn-primary" string="Submit" states="draft"/>
+                            <button name="action_approve" type="object" class="btn-primary" string="Approve" groups="leave_management.group_employee_manager" states="submitted"/>
+                            <button name="action_refuse" type="object" class="btn-primary" string="Refuse" states="submitted"/>
+                        </header>
+                        <field name="is_employee_user" invisible="1"/>
                         <div class="oe_title">
                             <label for="employee_id"/>
                             <h1>
-                                <field name="employee_id"/>
+                                <field name="employee_id" attrs="{'readonly':['|','|','&amp;',('state','!=','draft'),('is_employee_user','=',True),('state','=','approved'),('state','=','refused')]}"/>
                             </h1>
                         </div>
                         <group>
                             <group>
-                                <field name="start_date"/>
-                                <field name="end_date"/>
+                                <field name="start_date" attrs="{'readonly':['|','|','&amp;',('state','!=','draft'),('is_employee_user','=',True),('state','=','approved'),('state','=','refused')]}"/>
+                                <field name="end_date" attrs="{'readonly':['|','|','&amp;',('state','!=','draft'),('is_employee_user','=',True),('state','=','approved'),('state','=','refused')]}"/>
                             </group>
                             <group>
-                                <field name="state"/>
+                                <field name="state" readonly="1"/>
                                 <field name="number_of_days"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Reason">
-                                <field name="reason"/>
+                                <field name="reason" attrs="{'readonly':['|','|','&amp;',('state','!=','draft'),('is_employee_user','=',True),('state','=','approved'),('state','=','refused')]}"/>
                             </page>
                         </notebook>
                     </sheet>

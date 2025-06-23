@@ -16,6 +16,7 @@
         <record id="group_employee_manager" model="res.groups">
             <field name="name">Manager Employee</field>
             <field name="category_id" ref="module_category_leave_management"/>
+            <field name="implied_ids" eval="[(4, ref('group_employee_user'))]"/>
             <field name="comment">Nhóm người dùng quản lý nhân viên</field>
         </record>
     </data>

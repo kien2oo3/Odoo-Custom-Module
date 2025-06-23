@@ -43,6 +43,8 @@ class Property(models.Model):
         for record in self:
             if record.offer_ids:
                 record.best_offer = max(list(map(lambda x: x['price'], record.offer_ids)))
+            else:
+                record.best_offer = 0
 
     @api.onchange("best_offer", "name")
     def onchange_best_offer(self):

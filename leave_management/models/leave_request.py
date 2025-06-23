@@ -28,11 +28,20 @@ class LeaveRequest(models.Model):
             else:
                 rc.number_of_days = 0
 
-    @api.depends('employee_id')
     @api.depends_context('uid')
     def _compute_is_employee_user(self):
+        print("====================== Compute called ==================================")
         for rc in self:
-            rc.is_employee_user = self.env.user.has_group('leave_management.group_employee_user') and not self.env.user.has_group('leave_management.group_employee_manager')
+            rc.is_employee_user = self.env.user.has_group(
+                'leave_management.group_employee_user') and not self.env.user.has_group(
+                'leave_management.group_employee_manager')
+
+    @api.onchange('employee_id')
+    def _onchange_employee_user(self):
+        print("====================== Trigger called ==================================")
+        self.is_employee_user = self.env.user.has_group(
+            'leave_management.group_employee_user') and not self.env.user.has_group(
+            'leave_management.group_employee_manager')
 
     def action_submit(self):
         for rec in self:
@@ -43,7 +52,8 @@ class LeaveRequest(models.Model):
 
     def action_approve(self):
         for rec in self:
-            if self.env.user.has_group('leave_management.group_employee_user') and not self.env.user.has_group('leave_management.group_employee_manager'):
+            if self.env.user.has_group('leave_management.group_employee_user') and not self.env.user.has_group(
+                    'leave_management.group_employee_manager'):
                 raise ValidationError('Bạn không có quyền ấn nút chấp thuận!')
             if rec.state != 'submitted':
                 raise ValidationError('Đơn ở trạng thái đã gửi mới được phép chấp nhận!')

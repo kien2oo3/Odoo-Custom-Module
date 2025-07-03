@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_performance_review_search_view" model="ir.ui.view">
+            <field name="name">hr.performance.review.search</field>
+            <field name="model">hr.performance.review</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="reviewer_id"/>
+                    <field name="performance_score"/>
+                    <field name="review_date"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_performance_review_tree_view" model="ir.ui.view">
+            <field name="name">hr.performance.review.tree</field>
+            <field name="model">hr.performance.review</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="reviewer_id"/>
+                    <field name="performance_score"/>
+                    <field name="review_date"/>
+                    <field name="state" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_performance_review_form_view" model="ir.ui.view">
+            <field name="name">hr.performance.review.form</field>
+            <field name="model">hr.performance.review</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" class="btn btn-primary"
+                                attrs="{'invisible':[('state','=','submitted')]}"/>
+                        <button name="action_approve" string="Approve" type="object" class="btn btn-success"
+                                groups="performance_review_management.group_manager, performance_review_management.group_admin"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="reviewer_id"/>
+                            </group>
+                            <group>
+                                <field name="review_date"/>
+                                <field name="performance_score"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Comments">
+                                <field name="comments"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_performance_review" model="ir.actions.act_window">
+            <field name="name">Performance Review</field>
+            <field name="res_model">hr.performance.review</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Review
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

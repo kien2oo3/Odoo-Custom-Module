@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_employee_form_inherit_add_field" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.add.field</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_button_performance_review_tree_view" type="object"
+                            icon="fa-address-book"
+                            string="Show reviews"
+                            help="Hiển thị danh sách các đánh giá hiệu suất của nhân viên này">
+                        <field name="reviews_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <field name="average_score"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="performance_review_employee_jog" model="hr.performance.review">
+            <field name="name">Đánh giá nhân viên Beth Evans</field>
+            <field name="employee_id" ref="hr.employee_jog"/>
+            <field name="review_date">2025-09-03</field>
+            <field name="reviewer_id" ref="base.user_admin"/>
+            <field name="performance_score">8.5</field>
+            <field name="comments">good bro</field>
+            <field name="state">draft</field>
+        </record>
+        <record id="performance_review_employee_hne" model="hr.performance.review">
+            <field name="name">Đánh giá nhân viên Abigail Peterson</field>
+            <field name="employee_id" ref="hr.employee_hne"/>
+            <field name="review_date">2025-09-05</field>
+            <field name="reviewer_id" ref="base.user_demo"/>
+            <field name="performance_score">9</field>
+            <field name="comments">excellent bro</field>
+            <field name="state">submitted</field>
+        </record>
+        <record id="performance_employee_lur" model="hr.performance.review">
+            <field name="name">Đánh giá nhân viên Eli Lambert</field>
+            <field name="employee_id" ref="hr.employee_lur"/>
+            <field name="review_date">2025-09-08</field>
+            <field name="reviewer_id" ref="base.user_demo"/>
+            <field name="performance_score">8.8</field>
+            <field name="comments">good bro</field>
+            <field name="state">draft</field>
+        </record>
+    </data>
+</odoo>

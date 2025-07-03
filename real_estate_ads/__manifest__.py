@@ -9,20 +9,21 @@
     "category": "Sales",
     "depends": ["base"],
     "data": [
-        'security/ir.model.access.csv',
-        'views/property_view.xml',
-        'views/property_type_view.xml',
-        'views/property_tag_view.xml',
-        'views/menu_items.xml',
-
+        "security/ir.model.access.csv",
+        "security/res_groups.xml",
+        "security/model_access.xml",
+        "security/ir_rule.xml",
+        "views/property_view.xml",
+        "views/property_type_view.xml",
+        "views/property_tag_view.xml",
+        "views/property_offer_view.xml",
+        "views/menu_items.xml",
         # data files
-        'data/property_type.xml',
-        'data/estate.property.type.csv',
+        "data/property_type.xml",
+        "data/estate.property.type.csv",
     ],
-    "demo":[
-        'demo/property_tag.xml'
-    ],
+    "demo": ["demo/property_tag.xml"],
     "installable": True,
     "application": True,
-    "license":"LGPL-3"
+    "license": "LGPL-3",
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
         <record id="estate_property_offer_tree_view" model="ir.ui.view">
@@ -6,13 +6,13 @@
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <tree decoration-success="status=='accepted'" decoration-danger="status=='refused'">
-                    <field name="price"/>
-                    <field name="partner_id"/>
-                    <field name="property_id"/>
-                    <field name="creation_date"/>
-                    <field name="validity"/>
-                    <field name="deadline"/>
-                    <field name="status" widget="badge" nolabel="1"/>
+                    <field name="price" />
+                    <field name="partner_id" />
+                    <field name="property_id" />
+                    <field name="creation_date" />
+                    <field name="validity" />
+                    <field name="deadline" />
+                    <field name="status" widget="badge" nolabel="1" />
                 </tree>
             </field>
         </record>
@@ -25,17 +25,17 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="price"/>
-                                <field name="status"/>
-                                <field name="partner_id"/>
-                                <field name="phone"/>
-                                <field name="email"/>
+                                <field name="price" />
+                                <field name="status" />
+                                <field name="partner_id" />
+                                <field name="phone" />
+                                <field name="email" />
                             </group>
                             <group>
-                                <field name="property_id"/>
-                                <field name="creation_date" readonly="1"/>
-                                <field name="validity"/>
-                                <field name="deadline"/>
+                                <field name="property_id" />
+                                <field name="creation_date" readonly="1" />
+                                <field name="validity" />
+                                <field name="deadline" />
                             </group>
                         </group>
                     </sheet>
@@ -47,12 +47,33 @@
             <field name="name">Property Offer</field>
             <field name="res_model">estate.property.offer</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="estate_property_offer_tree_view"/>
+            <field name="view_id" ref="estate_property_offer_tree_view" />
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Create a Property offer
                 </p>
             </field>
+        </record>
+
+        <record id="action_extend_deadline_validity" model="ir.actions.server">
+            <field name="name">Extend validity</field>
+            <field name="model_id" ref="real_estate_ads.model_estate_property_offer" />
+            <field name="binding_model_id" ref="real_estate_ads.model_estate_property_offer" />
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.extend_deadline_validity()
+            </field>
+        </record>
+
+        <record id="ir_cron_extend_validity_offer" model="ir.cron">
+            <field name="name">Property Offer: Gia hạn validity thêm 1 mỗi ngày</field>
+            <field name="model_id" ref="real_estate_ads.model_estate_property_offer" />
+            <field name="state">code</field>
+            <field name="code">model._cron_extend_validity_property_offer()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
         </record>
     </data>
 </odoo>

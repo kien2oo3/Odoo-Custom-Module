@@ -103,3 +103,19 @@ class PropertyOffer(models.Model):
             self.property_id.selling_price = 0
         self.status = "refused"
         self.property_id.state = "received"
+
+    def extend_deadline_validity(self):
+        print("Extend deadline validity called")
+        print(self.ids)
+        ids = self.ids
+        if ids:
+            offers = self.env["estate.property.offer"].browse(ids).exists()
+            for offer in offers:
+                offer.validity = 7
+
+    def _cron_extend_validity_property_offer(self):
+        offers = self.env["estate.property.offer"].search([])
+        if offers:
+            for offer in offers:
+                if offer.validity:
+                    offer.validity = offer.validity + 1

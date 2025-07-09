@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <menuitem id="menu_root_property_ads" name="Property Ads">
         <menuitem id="menu_property_ads" name="Ads">
-            <menuitem id="menu_property" name="Property" action="action_property"/>
+            <menuitem id="menu_property" name="Property" action="action_property" />
         </menuitem>
         <menuitem id="menu_property_settings" name="Settings">
-            <menuitem id="menu_property_type" name="Types" action="action_property_type"/>
-            <menuitem id="menu_property_tag" name="Tags" action="action_property_tag"/>
-            <menuitem id="menu_property_offer" name="Offers" action="action_property_offer"/>
+            <menuitem id="menu_property_type" name="Types" action="action_property_type" />
+            <menuitem id="menu_property_tag" name="Tags" action="action_property_tag" />
+            <menuitem id="menu_property_offer" name="Offers" action="action_property_offer" />
         </menuitem>
     </menuitem>
 </odoo>

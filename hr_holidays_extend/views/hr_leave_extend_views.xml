@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <data>
+
+        <record id="action_approves_timeoff" model="ir.actions.server">
+            <field name="name">Approves timeoff</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="binding_model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_approves_timeoff()
+            </field>
+        </record>
+
+        <record id="action_timeoff_state_wizard" model="ir.actions.server">
+            <field name="name">Update Time Off</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="binding_model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_timeoff_state_wizard()
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

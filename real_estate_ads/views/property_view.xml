@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
         <record id="estate_property_search_view" model="ir.ui.view">
@@ -6,17 +6,21 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name"/>
-                    <field name="type_id"/>
-                    <field name="postcode"/>
-                    <field name="state"/>
-                    <filter name="filter_new_state" string="New state" domain="[('state', '=', 'new')]"/>
-                    <filter name="filter_amp123_postcode" string="AMP-234" domain="[('postcode', '=', 'AMP-234')]"/>
-                    <separator/>
-                    <filter name="filter_sold_state" string="Sold state" domain="[('state', '=', 'sold')]"/>
+                    <field name="name" />
+                    <field name="type_id" />
+                    <field name="postcode" />
+                    <field name="state" />
+                    <filter name="filter_new_state" string="New state"
+                        domain="[('state', '=', 'new')]" />
+                    <filter name="filter_amp123_postcode" string="AMP-234"
+                        domain="[('postcode', '=', 'AMP-234')]" />
+                    <separator />
+                    <filter name="filter_sold_state" string="Sold state"
+                        domain="[('state', '=', 'sold')]" />
                     <group>
                         <filter name="group_by_state" string="State" context="{'group_by': 'state'}" />
-                        <filter name="group_by_postcode" string="Postcode" context="{'group_by': 'postcode'}" />
+                        <filter name="group_by_postcode" string="Postcode"
+                            context="{'group_by': 'postcode'}" />
                     </group>
                 </search>
             </field>
@@ -28,7 +32,7 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="name"/>
+                        <field name="name" />
                     </group>
                 </form>
             </field>
@@ -38,27 +42,29 @@
             <field name="name">estate.property.kanban</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="state" on_create="quick_create" quick_create_view="real_estate_ads.quick_create_estate_property_form_view">
-                    <field name="name"/>
-                    <field name="postcode"/>
-                    <field name="expected_price"/>
-                    <field name="best_offer"/>
-                    <field name="selling_price"/>
-                    <field name="state"/>
-                    <field name="tag_ids"/>
-                    <field name="offers_count"/>
+                <kanban default_group_by="state" on_create="quick_create"
+                    quick_create_view="real_estate_ads.quick_create_estate_property_form_view">
+                    <field name="name" />
+                    <field name="postcode" />
+                    <field name="expected_price" />
+                    <field name="best_offer" />
+                    <field name="selling_price" />
+                    <field name="state" />
+                    <field name="tag_ids" />
+                    <field name="offers_count" />
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_card oe_kanban_global_click">
                                 <strong class="o_kanban_record_title">
-                                    <field name="name"/>
+                                    <field name="name" />
                                 </strong>
-                                <field name="state" widget="badge"/>
-                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="state" widget="badge" />
+                                <field name="tag_ids" widget="many2many_tags"
+                                    options="{'color_field': 'color'}" />
                                 <div class="oe_kanban_bottom_left">
                                     <span class="oe_kanban_badge" title="Offers">
-                                        <i class="fa fa-users"/>
-                                        <field name="offers_count"/>
+                                        <i class="fa fa-users" />
+                                        <field name="offers_count" />
                                     </span>
                                 </div>
                             </div>
@@ -73,10 +79,10 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <pivot string="Demo pivot" disable_linking="true">
-                    <field name="name" type="row"/>
+                    <field name="name" type="row" />
                     <!-- <field name="state" type="row"/> -->
-                    <field name="expected_price" type="measure"/>
-                    <field name="date_availability" type="col" interval="month"/>
+                    <field name="expected_price" type="measure" />
+                    <field name="date_availability" type="col" interval="month" />
                 </pivot>
             </field>
         </record>
@@ -86,8 +92,8 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <graph string="Demo graph" type="bar">
-                    <field name="name"/>
-                    <field name="expected_price" type="measure"/>
+                    <field name="name" />
+                    <field name="expected_price" type="measure" />
                     <!-- <field name="garden_area" type="measure"/> -->
                 </graph>
             </field>
@@ -97,7 +103,8 @@
             <field name="name">estate.property.view.calendar</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <calendar string="Property ads calendar" date_start="date_availability" mode="month" quick_add="False">
+                <calendar string="Property ads calendar" date_start="date_availability" mode="month"
+                    quick_add="False">
                     <field name="name" />
                     <field name="sales_id" />
                     <field name="buyer_id" />
@@ -110,12 +117,12 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="postcode"/>
-                    <field name="expected_price"/>
-                    <field name="best_offer"/>
-                    <field name="selling_price"/>
-                    <field name="state" widget="badge"/>
+                    <field name="name" />
+                    <field name="postcode" />
+                    <field name="expected_price" />
+                    <field name="best_offer" />
+                    <field name="selling_price" />
+                    <field name="state" widget="badge" />
                 </tree>
             </field>
         </record>
@@ -127,76 +134,106 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="action_sold" type="object" string="Sold" class="btn btn-success"/>
-                        <button name="action_cancel" type="object" string="Cancel" class="btn btn-danger"/>
-                        <button name="action_button" type="object" string="Button" class="btn btn-secondary"/>
-                        <!--                        <button name="action_button" type="object" string="Button" class="btn btn-primary"/>-->
-                        <field name="state" widget="statusbar"/>
-                        <!--                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>-->
+                        <button name="action_sold" type="object" string="Sold"
+                            class="btn btn-success" />
+                        <button name="action_cancel" type="object" string="Cancel"
+                            class="btn btn-danger" />
+                        <button name="action_button" type="object" string="Button"
+                            class="btn btn-secondary" />
+                        <!--                        <button name="action_button" type="object" string="Button" class="btn
+                        btn-primary"/>-->
+                        <field name="state" widget="statusbar" />
+                        <!--                        <field name="state" widget="statusbar"
+                        statusbar_visible="draft,posted"/>-->
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="action_button_property_offer_tree_view" type="object" icon="fa-handshake-o">
-                                <field name="offers_count" widget="statinfo"/>
+                            <button name="action_button_property_offer_tree_view" type="object"
+                                icon="fa-handshake-o">
+                                <field name="offers_count" widget="statinfo" />
+                            </button>
+                            <!-- <button name="action_button_url" type="object"
+                            icon="fa-handshake-o">
+                                <field name="offers_count" widget="statinfo" />
+                            </button> -->
+                            <button name="website_publish_button" type="object" icon="fa-globe">
+                                <field name="is_published" widget="website_publish_button" />
                             </button>
                         </div>
                         <group>
                             <div class="oe_title">
-                                <label for="name"/>
+                                <label for="name" />
                                 <h1>
-                                    <field name="name"/>
+                                    <field name="name" />
                                 </h1>
                             </div>
-                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                options="{'color_field': 'color'}" />
                             <group>
-                                <field name="type_id"/>
-                                <field name="postcode"/>
-                                <field name="date_availability"/>
+                                <field name="type_id" />
+                                <field name="postcode" />
+                                <field name="date_availability" />
                             </group>
                             <group>
-                                <field name="expected_price"/>
-                                <field name="best_offer"/>
-                                <field name="selling_price"/>
+                                <field name="expected_price" />
+                                <field name="best_offer" />
+                                <field name="selling_price" />
                             </group>
                         </group>
                         <notebook>
                             <page string="Description">
                                 <group>
-                                    <field name="description" placeholder="Nhập mô tả bất động sản của bạn"/>
-                                    <field name="bedrooms"/>
-                                    <field name="living_area"/>
-                                    <field name="facades"/>
-                                    <field name="garage" widget="boolean_toggle" options="{'autosave': False}"/>
-                                    <field name="garden" widget="boolean_toggle"/>
-                                    <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
-                                    <field name="garden_orientation" widget="selection_badge" attrs="{'invisible':[('garden','=',False)]}"/>
-                                    <field name="total_area"/>
+                                    <field name="description"
+                                        placeholder="Nhập mô tả bất động sản của bạn" />
+                                    <field name="bedrooms" />
+                                    <field name="living_area" />
+                                    <field name="facades" />
+                                    <field name="garage" widget="boolean_toggle"
+                                        options="{'autosave': False}" />
+                                    <field name="garden" widget="boolean_toggle" />
+                                    <field name="garden_area"
+                                        attrs="{'invisible':[('garden','=',False)]}" />
+                                    <field name="garden_orientation" widget="selection_badge"
+                                        attrs="{'invisible':[('garden','=',False)]}" />
+                                    <field name="total_area" />
                                 </group>
                             </page>
                             <page string="Offers">
                                 <field name="offer_ids">
-                                    <tree editable="bottom" decoration-success="status=='accepted'" decoration-danger="status=='refused'">
-                                        <field name="partner_id"/>
-                                        <field name="price"/>
-                                        <field name="creation_date" readonly="1"/>
-                                        <field name="validity"/>
-                                        <field name="deadline" widget="remaining_days"/>
-                                        <field name="status" readonly="1"/>
-                                        <button name="action_accept_offer" type="object" icon="fa-check" string="accept" attrs="{'invisible':[('status','=','accepted')]}"/>
-                                        <button name="action_refuse_offer" type="object" icon="fa-times" string="decline" attrs="{'invisible':[('status','=','refused')]}"/>
+                                    <tree editable="bottom" decoration-success="status=='accepted'"
+                                        decoration-danger="status=='refused'">
+                                        <field name="partner_id" />
+                                        <field name="price" />
+                                        <field name="creation_date" readonly="1" />
+                                        <field name="validity" />
+                                        <field name="deadline" widget="remaining_days" />
+                                        <field name="status" readonly="1" />
+                                        <button name="action_accept_offer" type="object"
+                                            icon="fa-check" string="accept"
+                                            attrs="{'invisible':[('status','=','accepted')]}" />
+                                        <button name="action_refuse_offer" type="object"
+                                            icon="fa-times" string="decline"
+                                            attrs="{'invisible':[('status','=','refused')]}" />
                                     </tree>
                                 </field>
                             </page>
                             <page string="Other info">
                                 <group>
-                                    <field name="sales_id" widget="many2one_avatar"/>
-                                    <field name="buyer_id" widget="many2one_avatar"/>
-                                    <field name="buyer_email"/>
-                                    <field name="buyer_phone" widget="phone"/>
+                                    <field name="sales_id" widget="many2one_avatar" />
+                                    <field name="buyer_id" widget="many2one_avatar" />
+                                    <field name="buyer_email" />
+                                    <field name="buyer_phone" widget="phone" />
+                                    <field name="website_url" />
                                 </group>
                             </page>
                         </notebook>
                     </sheet>
+                    <!-- Thêm phần này để hiển thị lịch sử (chatter) -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
                 </form>
             </field>
         </record>
@@ -205,7 +242,7 @@
             <field name="name">Property</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">kanban,pivot,calendar,graph,tree,form</field>
-            <field name="view_id" ref="estate_property_kanban_view"/>
+            <field name="view_id" ref="estate_property_kanban_view" />
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Create a Property to Advertise

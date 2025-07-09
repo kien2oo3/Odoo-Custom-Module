@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
         <record id="hr_performance_review_search_view" model="ir.ui.view">
@@ -6,12 +6,12 @@
             <field name="model">hr.performance.review</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name"/>
-                    <field name="employee_id"/>
-                    <field name="reviewer_id"/>
-                    <field name="performance_score"/>
-                    <field name="review_date"/>
-                    <field name="state"/>
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="reviewer_id" />
+                    <field name="performance_score" />
+                    <field name="review_date" />
+                    <field name="state" />
                 </search>
             </field>
         </record>
@@ -21,12 +21,12 @@
             <field name="model">hr.performance.review</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="employee_id"/>
-                    <field name="reviewer_id"/>
-                    <field name="performance_score"/>
-                    <field name="review_date"/>
-                    <field name="state" widget="badge"/>
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="reviewer_id" />
+                    <field name="performance_score" />
+                    <field name="review_date" />
+                    <field name="state" widget="badge" />
                 </tree>
             </field>
         </record>
@@ -37,35 +37,43 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="action_submit" string="Submit" type="object" class="btn btn-primary"
-                                attrs="{'invisible':[('state','=','submitted')]}"/>
-                        <button name="action_approve" string="Approve" type="object" class="btn btn-success"
-                                groups="performance_review_management.group_manager, performance_review_management.group_admin"/>
-                        <field name="state" widget="statusbar"/>
+                        <button name="action_submit" string="Submit" type="object"
+                            class="btn btn-primary"
+                            attrs="{'invisible':[('state','=','submitted')]}" />
+                        <button name="action_approve" string="Approve" type="object"
+                            class="btn btn-success"
+                            groups="performance_review_management.group_manager, performance_review_management.group_admin" />
+                        <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
                         <div class="oe_title">
-                            <label for="name"/>
+                            <label for="name" />
                             <h1>
-                                <field name="name"/>
+                                <field name="name" />
                             </h1>
                         </div>
                         <group>
                             <group>
-                                <field name="employee_id"/>
-                                <field name="reviewer_id"/>
+                                <field name="is_employee" invisible="1" />
+                                <field name="employee_id" attrs="{'readonly':[('is_employee','=',True)]}" />
+                                <field name="reviewer_id" />
                             </group>
                             <group>
-                                <field name="review_date"/>
-                                <field name="performance_score"/>
+                                <field name="review_date" />
+                                <field name="performance_score" />
                             </group>
                         </group>
                         <notebook>
                             <page string="Comments">
-                                <field name="comments"/>
+                                <field name="comments" />
                             </page>
                         </notebook>
                     </sheet>
+                    <!-- Thêm phần này để hiển thị lịch sử (chatter) -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
                 </form>
             </field>
         </record>
@@ -79,6 +87,8 @@
                     Create a new Review
                 </p>
             </field>
+            <field name="context">{}</field>
+            <!-- <field name="context">{"default_reviewer_id":uid}</field> -->
         </record>
     </data>
 </odoo>

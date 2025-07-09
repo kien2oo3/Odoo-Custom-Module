@@ -5,9 +5,21 @@ from odoo.exceptions import ValidationError
 class Property(models.Model):
     _name = "estate.property"
     _description = "Estate properties"
+    _inherit = [
+        "mail.thread",
+        "mail.activity.mixin",
+        "website.published.mixin"
+    ]  # Kích hoạt lưu lịch sử và gắn activity
 
     type_id = fields.Many2one("estate.property.type", string="Type")
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    tag_vip_ids = fields.Many2many(
+        "estate.property.tag",
+        relation="estate_property_vip_tag_rel",
+        column1="e_p_id",
+        column2="e_p_tag_vip_id",
+        string="VIP Tags",
+    )
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
     offers_count = fields.Integer(
         string="Offers count", compute="_compute_offers_count"
@@ -27,7 +39,7 @@ class Property(models.Model):
     description = fields.Text(string="Description")
     postcode = fields.Char(string="Postcode")
     date_availability = fields.Date(string="Date availability")
-    expected_price = fields.Float(string="Expected price")
+    expected_price = fields.Float(string="Expected price", tracking=True)
     best_offer = fields.Float(string="Best offer", compute="_compute_best_offer")
     selling_price = fields.Float(string="Selling price", readonly=True)
     bedrooms = fields.Integer(string="Bedroom")
@@ -107,11 +119,15 @@ class Property(models.Model):
             rs.append((pro.id, "%s(%s)" % (pro.name, pro.postcode)))
         return rs
 
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
         args = args or []
         domain = []
         if name:
-            domain = domain + ['|', ('name', operator, name), ('postcode', operator, name)]
+            domain = domain + [
+                "|",
+                ("name", operator, name),
+                ("postcode", operator, name),
+            ]
         full_domain = args + domain
         rs = self.search(domain=full_domain)
         return rs.name_get()
@@ -121,7 +137,7 @@ class Property(models.Model):
         # print(self)
         # print(len(self))
         # print(self.env)
-        # self.env["estate.property"].action_button_model()
+        self.env["estate.property"].action_button_model()
 
         #### recordset.ids
         # rcs = self.env['estate.property'].search([])
@@ -153,7 +169,7 @@ class Property(models.Model):
         # print(self.name_get())
 
         #### recordset.get_metadata()
-        print(self.get_metadata()[0]['write_uid'])
+        # print(self.get_metadata()[0]["write_uid"])
 
         #### fields_get()
         # rs = self.env['estate.property'].fields_get()
@@ -207,6 +223,18 @@ class Property(models.Model):
         print("Lang:", self.env.context.get("lang"))
         print("Active ID:", self.env.context.get("active_id"))
         print("Available models:", dir(self.env))  # Gợi ý tên model có thể truy cập
+
+    def action_button_url(self):
+        return {
+            "type":"ir.actions.act_url",
+            "name":"Odoo",
+            "url":"https://youtube.com",
+            "target":"self"
+        }
+    
+    def _compute_website_url(self):
+        for rec in self:
+            rec.website_url = f"/property/{rec.id}"
 
 
 # @api.onchange("best_offer", "name")

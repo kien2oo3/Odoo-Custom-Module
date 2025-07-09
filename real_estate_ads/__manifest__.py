@@ -7,7 +7,7 @@
         Real estate ads module
     """,
     "category": "Sales",
-    "depends": ["base"],
+    "depends": ["base", "mail", "website"],
     "data": [
         "security/ir.model.access.csv",
         "security/res_groups.xml",

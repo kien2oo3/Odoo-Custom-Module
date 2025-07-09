@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+        <record id="employees_experience_year_wizard_form_view" model="ir.ui.view">
+            <field name="name">employees.experience.year.wizard.form</field>
+            <field name="model">employees.experience.year.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="employee_ids" />
+                            <field name="experience_years" />
+                        </group>
+                        <footer>
+                            <button name="action_confirm_experience_year" string="Cập nhật" type="object"
+                                class="oe_stat_button" icon="fa-check" />
+                            <button string="Hủy bỏ" special="cancel" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

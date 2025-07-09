@@ -12,6 +12,8 @@
         'security/groups.xml',
         'security/ir.model.access.csv',
         'views/hr_performance_review_view.xml',
+        'views/hr_employee_experience_wizard_view.xml',
+        'views/wizards/employees_experience_year_wizard_view.xml',
         'views/hr_employee.xml',
         'views/menus.xml',
     ],

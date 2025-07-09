@@ -1,22 +1,54 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
         <record id="hr_employee_form_inherit_add_field" model="ir.ui.view">
             <field name="name">hr.employee.form.inherit.add.field</field>
             <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="inherit_id" ref="hr.view_employee_form" />
             <field name="arch" type="xml">
-                <xpath expr="//header" position="inside">
-                    <button name="action_button_performance_review_tree_view" type="object"
-                            icon="fa-address-book"
-                            string="Show reviews"
-                            help="Hiển thị danh sách các đánh giá hiệu suất của nhân viên này">
-                        <field name="reviews_count" widget="statinfo"/>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_button_performance_review_tree_view"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-comments-o"
+                        attrs="{'invisible': [('reviews_count', '=', 0)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="reviews_count" />
+                            </span>
+                            <span class="o_stat_text">Reviews</span>
+                        </div>
+                    </button>
+                    <button name="action_open_experience_year_wizard"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-address-book">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="years_of_experience" readonly="1" />
+                            </span>
+                            <span class="o_stat_text">Experiences</span>
+                        </div>
                     </button>
                 </xpath>
                 <xpath expr="//field[@name='work_email']" position="after">
-                    <field name="average_score"/>
+                    <field name="average_score" />
+                    <field name="years_of_experience" readonly="1" />
                 </xpath>
+                <xpath expr="//page[@name='public']" position="attributes">
+                    <attribute name="groups">performance_review_management.group_employee_experience_super_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_show_experience_year_wizard" model="ir.actions.server">
+            <field name="name">Update experiece years</field>
+            <field name="model_id" ref="model_hr_employee" />
+            <field name="binding_model_id" ref="model_hr_employee" />
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.show_experience_year_wizard()
             </field>
         </record>
     </data>

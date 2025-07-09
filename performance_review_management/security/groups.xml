@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- Category and groups -->
     <data>
         <record id="module_category_performance_review" model="ir.module.category">
             <field name="name">Performance review</field>
@@ -8,59 +9,92 @@
 
         <record id="group_employee" model="res.groups">
             <field name="name">Nhân viên</field>
-            <field name="category_id" ref="performance_review_management.module_category_performance_review"/>
+            <field name="category_id"
+                ref="performance_review_management.module_category_performance_review" />
         </record>
 
         <record id="group_manager" model="res.groups">
             <field name="name">Quản lý</field>
-            <field name="category_id" ref="performance_review_management.module_category_performance_review"/>
-            <field name="implied_ids" eval="[(4, ref('performance_review_management.group_employee'))]"/>
+            <field name="category_id"
+                ref="performance_review_management.module_category_performance_review" />
+            <field name="implied_ids"
+                eval="[(4, ref('performance_review_management.group_employee'))]" />
         </record>
 
         <record id="group_admin" model="res.groups">
             <field name="name">Admin</field>
-            <field name="category_id" ref="module_category_performance_review"/>
-            <field name="implied_ids" eval="[(4, ref('performance_review_management.group_manager'))]"/>
+            <field name="category_id" ref="module_category_performance_review" />
+            <field name="implied_ids"
+                eval="[(4, ref('performance_review_management.group_manager'))]" />
         </record>
+
+        <!-- Nhóm thao tác với số năm kinh nghiệm của các nhân viên -->
+        <record id="group_employee_experience_manager" model="res.groups">
+            <field name="name">Xem và chỉnh sửa số năm kinh nghiệm của nhân viên</field>
+            <field name="category_id" ref="base.module_category_hidden" />
+        </record>
+
+        <record id="group_employee_experience_super_manager" model="res.groups">
+            <field name="name">Có thể xem thông công việc của nhân viên</field>
+            <field name="category_id" ref="base.module_category_hidden" />
+            <field name="implied_ids" eval="[(4, ref('performance_review_management.group_employee_experience_manager'))]"/>
+        </record>
+
     </data>
 
+
+    <!-- Record rules -->
     <data>
+        <!-- Nhân viên chỉ được xem bản ghi của chính mình -->
+        <record id="hr_performance_review_rule_employee_view" model="ir.rule">
+            <field name="name">Nhân viên chỉ được xem bản ghi của chính mình!</field>
+            <field name="model_id" ref="performance_review_management.model_hr_performance_review" />
+            <field name="groups" eval="[(4, ref('performance_review_management.group_employee'))]" />
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+            <field name="perm_read" eval="1" />
+            <field name="perm_create" eval="0" />
+            <field name="perm_write" eval="0" />
+            <field name="perm_unlink" eval="0" />
+        </record>
+
         <!-- Nhân viên chỉ được sửa bản ghi ở trạng thái draft -->
         <record id="hr_performance_review_rule_employee" model="ir.rule">
             <field name="name">Nhân viên chỉ được sửa bản ghi ở trạng thái draft</field>
-            <field name="model_id" ref="performance_review_management.model_hr_performance_review"/>
-            <field name="groups" eval="[(4, ref('performance_review_management.group_employee'))]"/>
+            <field name="model_id" ref="performance_review_management.model_hr_performance_review" />
+            <field name="groups" eval="[(4, ref('performance_review_management.group_employee'))]" />
             <field name="domain_force">[('state','=','draft')]</field>
-            <field name="perm_read" eval="0"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_write" eval="1"/>
-            <field name="perm_unlink" eval="0"/>
+            <field name="perm_read" eval="0" />
+            <field name="perm_create" eval="0" />
+            <field name="perm_write" eval="1" />
+            <field name="perm_unlink" eval="0" />
         </record>
 
         <!-- Quản lý có quyền đọc, tạo, sửa cho tất cả bản ghi -->
         <record id="hr_performance_review_rule_manager" model="ir.rule">
             <field name="name">Quản lý có quyền đọc, tạo, sửa cho tất cả bản ghi</field>
-            <field name="model_id" ref="performance_review_management.model_hr_performance_review"/>
-            <field name="groups" eval="[(4, ref('performance_review_management.group_manager'))]"/>
+            <field name="model_id" ref="performance_review_management.model_hr_performance_review" />
+            <field name="groups" eval="[(4, ref('performance_review_management.group_manager'))]" />
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
-<!--        <record id="hr_performance_review_rule_manager_state" model="ir.rule">-->
-<!--            <field name="name">Quản lý chỉ được approved bản ghi của mình!</field>-->
-<!--            <field name="model_id" ref="performance_review_management.model_hr_performance_review"/>-->
-<!--            <field name="groups" eval="[(4, ref('performance_review_management.group_manager'))]"/>-->
-<!--            <field name="domain_force">[('reviewer_id','=',user.id),()]</field>-->
-<!--            <field name="perm_read" eval="0"/>-->
-<!--            <field name="perm_create" eval="0"/>-->
-<!--            <field name="perm_write" eval="1"/>-->
-<!--            <field name="perm_unlink" eval="0"/>-->
-<!--        </record>-->
+        <!--        <record id="hr_performance_review_rule_manager_state" model="ir.rule">-->
+        <!--            <field name="name">Quản lý chỉ được approved bản ghi của mình!</field>-->
+        <!--            <field name="model_id"
+        ref="performance_review_management.model_hr_performance_review"/>-->
+        <!--            <field name="groups" eval="[(4,
+        ref('performance_review_management.group_manager'))]"/>-->
+        <!--            <field name="domain_force">[('reviewer_id','=',user.id),()]</field>-->
+        <!--            <field name="perm_read" eval="0"/>-->
+        <!--            <field name="perm_create" eval="0"/>-->
+        <!--            <field name="perm_write" eval="1"/>-->
+        <!--            <field name="perm_unlink" eval="0"/>-->
+        <!--        </record>-->
 
         <!-- Admin có đầy đủ quyền cho tất cả bản ghi -->
         <record id="hr_performance_review_rule_admin" model="ir.rule">
             <field name="name">Admin có đầy đủ quyền cho tất cả bản ghi</field>
-            <field name="model_id" ref="performance_review_management.model_hr_performance_review"/>
-            <field name="groups" eval="[(4, ref('performance_review_management.group_admin'))]"/>
+            <field name="model_id" ref="performance_review_management.model_hr_performance_review" />
+            <field name="groups" eval="[(4, ref('performance_review_management.group_admin'))]" />
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
     </data>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <menuitem
+        id="attendance_request_root_menu"
+        name="Attendance Request"
+        sequence="10">
+        <menuitem
+            id="attendance_request_menu"
+            name="Request"
+            action="action_attendance_request" />
+    </menuitem>
+
+</odoo>

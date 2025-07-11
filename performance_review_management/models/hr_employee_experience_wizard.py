@@ -2,8 +2,8 @@ from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
 class EmployeeExperienceYearWizard(models.TransientModel):
-    _name = "hr.employee.experience.year.wizards"
-    _description = "hr employee experience year wizards"
+    _name = "hr.employee.experience.year.wizard"
+    _description = "hr employee experience year wizard"
 
     def _get_employee_default(self):
         return self.env.context.get("active_id")

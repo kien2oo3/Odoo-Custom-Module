@@ -1,6 +1,11 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
+class Users(models.Model):
+    _inherit = "res.users"
+
+    property_ids = fields.One2many("estate.property", "sales_id", string="Properties")
+
 
 class Property(models.Model):
     _name = "estate.property"
@@ -8,7 +13,7 @@ class Property(models.Model):
     _inherit = [
         "mail.thread",
         "mail.activity.mixin",
-        "website.published.mixin"
+        "website.published.mixin",
     ]  # Kích hoạt lưu lịch sử và gắn activity
 
     type_id = fields.Many2one("estate.property.type", string="Type")
@@ -39,9 +44,14 @@ class Property(models.Model):
     description = fields.Text(string="Description")
     postcode = fields.Char(string="Postcode")
     date_availability = fields.Date(string="Date availability")
-    expected_price = fields.Float(string="Expected price", tracking=True)
-    best_offer = fields.Float(string="Best offer", compute="_compute_best_offer")
-    selling_price = fields.Float(string="Selling price", readonly=True)
+    currency_id = fields.Many2one(
+        "res.currency",
+        string="Currency",
+        default=lambda self: self.env.company.currency_id,
+    )
+    expected_price = fields.Monetary(string="Expected price", tracking=True)
+    best_offer = fields.Monetary(string="Best offer", compute="_compute_best_offer")
+    selling_price = fields.Monetary(string="Selling price", readonly=True)
     bedrooms = fields.Integer(string="Bedroom")
     living_area = fields.Float(string="Living area(sqm)")
     facades = fields.Integer(string="Facades")
@@ -116,21 +126,21 @@ class Property(models.Model):
     def name_get(self):
         rs = []
         for pro in self:
-            rs.append((pro.id, "%s(%s)" % (pro.name, pro.postcode)))
+            rs.append((pro.id, "%s - (%s)" % (pro.id, pro.name)))
         return rs
 
-    def name_search(self, name="", args=None, operator="ilike", limit=100):
-        args = args or []
-        domain = []
-        if name:
-            domain = domain + [
-                "|",
-                ("name", operator, name),
-                ("postcode", operator, name),
-            ]
-        full_domain = args + domain
-        rs = self.search(domain=full_domain)
-        return rs.name_get()
+    # def name_search(self, name="", args=None, operator="ilike", limit=100):
+    #     args = args or []
+    #     domain = []
+    #     if name:
+    #         domain = domain + [
+    #             "|",
+    #             ("name", operator, name),
+    #             ("postcode", operator, name),
+    #         ]
+    #     full_domain = args + domain
+    #     rs = self.search(domain=full_domain)
+    #     return rs.name_get()
 
     def action_button(self):
         print("\033[32m===================> Action button called\033[0m")
@@ -226,12 +236,12 @@ class Property(models.Model):
 
     def action_button_url(self):
         return {
-            "type":"ir.actions.act_url",
-            "name":"Odoo",
-            "url":"https://youtube.com",
-            "target":"self"
+            "type": "ir.actions.act_url",
+            "name": "Odoo",
+            "url": "https://youtube.com",
+            "target": "self",
         }
-    
+
     def _compute_website_url(self):
         for rec in self:
             rec.website_url = f"/property/{rec.id}"

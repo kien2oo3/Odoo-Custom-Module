@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <data>
+        <!-- Tree View -->
+        <record id="attendance_request_tree_view" model="ir.ui.view">
+            <field name="name">attendance.request.tree</field>
+            <field name="model">attendance.request</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="state=='approved'" decoration-danger="state=='rejected'">
+                    <field name="name" />
+                    <field name="request_date" />
+                    <field name="employee_id" />
+                    <field name="request_type" />
+                    <field name="reason" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="attendance_request_form_view" model="ir.ui.view">
+            <field name="name">attendance.request.form</field>
+            <field name="model">attendance.request</field>
+            <field name="arch" type="xml">
+                <form>    
+                    <header>
+                        <button name="action_approve" type="object" class="btn-success"
+                            string="Phê duyệt" states="waiting" groups="attendance_management.group_employee_manager_attendance" />
+                        <button name="action_refuse" type="object" class="btn-danger"
+                            string="Từ chối" states="waiting" groups="attendance_management.group_employee_manager_attendance" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" />
+                            <h1>
+                                <field name="name"  attrs="{'readonly':[('state','in',['waiting','approved','rejected'])]}" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="is_user" invisible="1" />
+                                <field name="request_date" readonly="1" />
+                                <field name="employee_id"  attrs="{'readonly':['|', ('state','in',['waiting','approved','rejected']), ('is_user','=',True)]}" />
+                            </group>
+                            <group>
+                                <field name="request_type"  attrs="{'readonly':[('state','in',['waiting','approved','rejected'])]}" required="1" />
+                                <field name="reason"
+                                    attrs="{'invisible':[('request_type','not in',['check_in_morning','check_out_morning','check_in_afternoon','check_out_afternoon'])], 'readonly':[('state','in',['waiting','approved','rejected'])]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_attendance_request" model="ir.actions.act_window">
+            <field name="name">Attendance request</field>
+            <field name="res_model">attendance.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Attendance Request
+                </p>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

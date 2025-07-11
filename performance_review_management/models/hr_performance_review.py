@@ -67,7 +67,7 @@ class Employee(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": "Experience year wizards",
-            "res_model": "hr.employee.experience.year.wizards",
+            "res_model": "hr.employee.experience.year.wizard",
             "view_mode": "form",
             "target": "new",
             "context": {"ex_years": self.years_of_experience},
@@ -92,7 +92,7 @@ class Employee(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": "Experience year wizards",
-            "res_model": "employees.experience.year.wizards",
+            "res_model": "employees.experience.year.wizard",
             "view_mode": "form",
             "target": "new",
             "context": {"default_employee_ids": self.ids},

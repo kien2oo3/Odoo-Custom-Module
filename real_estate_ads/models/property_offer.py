@@ -17,7 +17,8 @@ class PropertyOffer(models.Model):
     _inherit = "abstract.property.offer"
 
     name = fields.Char(string="Name", compute="_compute_name")
-    price = fields.Float(string="Price")
+    price = fields.Monetary(string="Price")
+    currency_id = fields.Many2one("res.currency", string="Currency", default=lambda self:self.env.company.currency_id)
     status = fields.Selection(
         string="Status", selection=[("accepted", "Accepted"), ("refused", "Refused")]
     )

@@ -35,7 +35,7 @@
         </record>
 
         <record id="group_employee_experience_super_manager" model="res.groups">
-            <field name="name">Có thể xem thông công việc của nhân viên</field>
+            <field name="name">Có thể xem thông tin công việc của nhân viên</field>
             <field name="category_id" ref="base.module_category_hidden" />
             <field name="implied_ids" eval="[(4, ref('performance_review_management.group_employee_experience_manager'))]"/>
         </record>

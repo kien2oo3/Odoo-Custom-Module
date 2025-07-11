@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Group -->
+    <data>
+        <record id="module_category_attendance_management" model="ir.module.category">
+            <field name="name">Attendance Management</field>
+            <field name="description">Quản lý chấm công nhân viên</field>
+            <field name="sequence">9</field>
+        </record>
+
+        <record id="group_employee_user_attendance" model="res.groups">
+            <field name="name">User Employee</field>
+            <field name="category_id" ref="attendance_management.module_category_attendance_management"/>
+            <field name="comment">Nhóm người dùng nhân viên</field>
+        </record>
+
+        <record id="group_employee_manager_attendance" model="res.groups">
+            <field name="name">Officer: Manage all employees</field>
+            <field name="category_id" ref="attendance_management.module_category_attendance_management"/>
+            <field name="implied_ids" eval="[(4, ref('attendance_management.group_employee_user_attendance'))]"/>
+            <field name="comment">Nhóm người dùng quản lý nhân viên</field>
+        </record>
+    </data>
+
+    <!-- Record Rule -->
+    <data>
+        <!-- Người dùng nhân viên chỉ xem được yêu cầu của chính mình -->
+        <record id="attendance_request_user_rule" model="ir.rule">
+            <field name="name">Người dùng nhân viên chỉ xem được yêu cầu của chính mình!</field>
+            <field name="model_id" ref="attendance_management.model_attendance_request" />
+            <field name="groups" eval="[(4, ref('attendance_management.group_employee_user_attendance'))]" />
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="perm_read" eval="1" />
+        </record>
+
+        <!-- Người quản lý nhân viên xem được tất cả yêu cầu -->
+        <record id="attendance_request_manager_rule" model="ir.rule">
+            <field name="name">Người quản lý nhân viên xem được tất cả yêu cầu!</field>
+            <field name="model_id" ref="attendance_management.model_attendance_request" />
+            <field name="groups" eval="[(4, ref('attendance_management.group_employee_manager_attendance'))]" />
+            <field name="domain_force">[(1, "=", 1)]</field>
+            <field name="perm_read" eval="1" />
+        </record>
+    </data>
+</odoo>

@@ -41,11 +41,22 @@
             </field>
         </record>
 
+        <record id="hr_employee_form_inherit_tree_view" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.tree.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="years_of_experience"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="action_show_experience_year_wizard" model="ir.actions.server">
             <field name="name">Update experiece years</field>
             <field name="model_id" ref="model_hr_employee" />
             <field name="binding_model_id" ref="model_hr_employee" />
-            <field name="binding_view_types">list,form</field>
+            <field name="binding_view_types">list</field>
             <field name="state">code</field>
             <field name="code">
                 action = records.show_experience_year_wizard()

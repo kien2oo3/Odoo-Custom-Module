@@ -6,7 +6,8 @@
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <tree decoration-success="status=='accepted'" decoration-danger="status=='refused'">
-                    <field name="price" />
+                    <field name="currency_id" invisible="1" />
+                    <field name="price" widget="monetary" />
                     <field name="partner_id" />
                     <field name="property_id" />
                     <field name="creation_date" />
@@ -25,7 +26,8 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="price" />
+                                <field name="currency_id" invisible="1" />
+                                <field name="price" widget="monetary" />
                                 <field name="status" />
                                 <field name="partner_id" />
                                 <field name="phone" />
@@ -62,6 +64,7 @@
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="code">
+                if records:
                 action = records.extend_deadline_validity()
             </field>
         </record>

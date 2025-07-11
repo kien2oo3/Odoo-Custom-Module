@@ -2,8 +2,8 @@ from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
 class EmployeesExperienceYearWizard(models.TransientModel):
-    _name = "employees.experience.year.wizards"
-    _description = "Employees experience year wizards"
+    _name = "employees.experience.year.wizard"
+    _description = "Employees experience year wizard"
 
     employee_ids = fields.Many2many("hr.employee", string="Employees", required=True)
     experience_years = fields.Integer(string="Experience years", required=True)

@@ -18,6 +18,7 @@
         "views/property_tag_view.xml",
         "views/property_offer_view.xml",
         "views/menu_items.xml",
+        "views/res_users_views_extend.xml",
         # data files
         "data/property_type.xml",
         "data/estate.property.type.csv",
